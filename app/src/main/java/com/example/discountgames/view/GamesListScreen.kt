@@ -8,18 +8,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.discountgames.viewModel.GameViewModel
 
 @Composable
-fun GamesListScreen(navController: NavHostController, viewModel: GameViewModel) {
+fun GamesListScreen(navController: NavHostController, viewModel: com.example.discountgames.presentation.GameViewModel) {
+    val games = viewModel.gamesList.value
+
     LazyColumn(modifier = Modifier
         .fillMaxSize()
         .padding(top = 35.dp)
     ) {
-        items(viewModel.gamesList.size) { index ->
-            val game = viewModel.gamesList[index]
+        items(games.size) { index ->
+            val game = games[index]
             Text(
-                text = game.name,
+                text = game.title,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(15.dp)

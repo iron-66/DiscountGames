@@ -11,11 +11,10 @@ import com.example.discountgames.view.EmptyScreen
 import com.example.discountgames.view.GameDetailsScreen
 import com.example.discountgames.view.GamesListScreen
 import com.example.discountgames.viewModel.EmptyViewModel
-import com.example.discountgames.viewModel.GameViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(viewModel: GameViewModel) {
+fun MainScreen(viewModel: com.example.discountgames.presentation.GameViewModel) {
     val navController = rememberNavController()
 
     Scaffold(

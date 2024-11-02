@@ -1,12 +1,13 @@
 package com.example.discountgames.data
 
+import com.example.discountgames.domain.FavoriteGame
 import com.example.discountgames.domain.Game
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-class GamesRepository(private val apiService: GamesApi) {
-
+class GamesRepository(private val apiService: GamesApi, private val favoriteGameDao: FavoriteGameDao) {
     suspend fun getDiscountedGames(storeId: String?, upperPrice: String?): List<Game> {
         return withContext(Dispatchers.IO) {
             try {
@@ -28,5 +29,15 @@ class GamesRepository(private val apiService: GamesApi) {
                 emptyList()
             }
         }
+    }
+
+    fun getFavoriteGames(): Flow<List<FavoriteGame>> = favoriteGameDao.getFavoriteGames()
+
+    suspend fun addGameToFavorites(game: FavoriteGame) {
+        favoriteGameDao.insertGame(game)
+    }
+
+    suspend fun removeGameFromFavorites(gameId: String) {
+        favoriteGameDao.deleteGame(gameId)
     }
 }

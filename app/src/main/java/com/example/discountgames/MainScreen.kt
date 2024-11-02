@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.discountgames.presentation.view.BottomNavigationBar
 import com.example.discountgames.presentation.view.EmptyScreen
+import com.example.discountgames.presentation.view.FavoriteScreen
 import com.example.discountgames.presentation.view.GameDetailsScreen
 import com.example.discountgames.presentation.view.GamesListScreen
 import com.example.discountgames.presentation.viewModel.EmptyViewModel
@@ -21,7 +22,7 @@ fun MainScreen(viewModel: GameViewModel) {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController = navController, selectedRoute = "gamesList")
+            BottomNavigationBar(navController = navController)
         }
     ) {
         NavHost(navController = navController, startDestination = "gamesList") {
@@ -32,13 +33,12 @@ fun MainScreen(viewModel: GameViewModel) {
                 val index = backStackEntry.arguments?.getString("index")?.toInt() ?: 0
                 GameDetailsScreen(index = index, viewModel = viewModel)
             }
-            composable("newGames") {
+            composable("settings") {
                 val emptyViewModel: EmptyViewModel = viewModel()
                 EmptyScreen(navController = navController, viewModel = emptyViewModel)
             }
-            composable("freeGames") {
-                val emptyViewModel: EmptyViewModel = viewModel()
-                EmptyScreen(navController = navController, viewModel = emptyViewModel)
+            composable("favorite") {
+                FavoriteScreen(navController = navController, viewModel = viewModel)
             }
             composable("notifications") {
                 val emptyViewModel: EmptyViewModel = viewModel()

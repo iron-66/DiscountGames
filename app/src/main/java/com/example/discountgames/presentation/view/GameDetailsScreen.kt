@@ -2,8 +2,10 @@ package com.example.discountgames.presentation.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,7 +13,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.discountgames.presentation.viewModel.GameViewModel
-import coil.compose.rememberImagePainter
+import com.example.discountgames.domain.FavoriteGame
 
 @Composable
 fun GameDetailsScreen(index: Int, viewModel: GameViewModel) {
@@ -31,6 +33,21 @@ fun GameDetailsScreen(index: Int, viewModel: GameViewModel) {
                     .padding(top = 8.dp),
                 contentScale = ContentScale.Crop
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = {
+                viewModel.addGameToFavorites(
+                    FavoriteGame(
+                        id = game.dealId,
+                        title = game.title,
+                        normalPrice = game.normalPrice,
+                        salePrice = game.salePrice,
+                        thumb = game.thumb
+                    )
+                )
+            }) {
+                Text("Добавить в избранное")
+            }
         }
     } else {
         Text(text = "Отсутствуют данные по данной игре", modifier = Modifier.padding(16.dp))

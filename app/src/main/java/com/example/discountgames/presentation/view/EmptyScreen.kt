@@ -1,4 +1,4 @@
-package com.example.discountgames.view
+package com.example.discountgames.presentation.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.discountgames.viewModel.EmptyViewModel
+import com.example.discountgames.presentation.viewModel.EmptyViewModel
 
 @Composable
 fun EmptyScreen(navController: NavHostController, viewModel: EmptyViewModel) {

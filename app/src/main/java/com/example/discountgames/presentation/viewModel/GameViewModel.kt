@@ -1,4 +1,4 @@
-package com.example.discountgames.presentation
+package com.example.discountgames.presentation.viewModel
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

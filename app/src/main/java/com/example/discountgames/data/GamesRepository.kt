@@ -5,18 +5,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-class GameRepository(private val apiService: ApiService) {
+class GamesRepository(private val apiService: GamesApi) {
 
     suspend fun getDiscountedGames(storeId: String?, upperPrice: String?): List<Game> {
         return withContext(Dispatchers.IO) {
             try {
-                val gameDtos = apiService.getDiscountedGames(storeId, upperPrice)
-                gameDtos.map { dto ->
+                val gamesList = apiService.getDiscountedGames(storeId, upperPrice)
+                gamesList.map { gameInfo ->
                     Game(
-                        title = dto.title,
-                        normalPrice = dto.normalPrice,
-                        salePrice = dto.salePrice,
-                        dealId = dto.dealId
+                        title = gameInfo.title,
+                        normalPrice = gameInfo.normalPrice,
+                        salePrice = gameInfo.salePrice,
+                        dealId = gameInfo.dealId,
+                        thumb = gameInfo.thumb
                     )
                 }
             } catch (e: IOException) {

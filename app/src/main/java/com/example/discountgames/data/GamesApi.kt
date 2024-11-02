@@ -1,12 +1,13 @@
 package com.example.discountgames.data
 
+import com.example.discountgames.domain.Game
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiService {
+interface GamesApi {
     @GET("deals")
     suspend fun getDiscountedGames(
         @Query("storeID") storeId: String?,
         @Query("upperPrice") upperPrice: String?
-    ): List<GameDto>
+    ): List<Game>
 }

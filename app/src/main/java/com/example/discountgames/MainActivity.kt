@@ -5,10 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
 import com.example.discountgames.data.RetrofitInstance
-import com.example.discountgames.data.GameRepository
+import com.example.discountgames.data.GamesRepository
 import com.example.discountgames.domain.GetDiscountedGamesUseCase
-import com.example.discountgames.presentation.GameViewModel
-import com.example.discountgames.presentation.GameViewModelFactory
+import com.example.discountgames.presentation.viewModel.GameViewModel
+import com.example.discountgames.presentation.viewModel.GameViewModelFactory
 
 class MainActivity : ComponentActivity() {
     private lateinit var gameViewModel: GameViewModel
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val apiService = RetrofitInstance.apiService
-        val gameRepository = GameRepository(apiService)
+        val gameRepository = GamesRepository(apiService)
         val getDiscountedGamesUseCase = GetDiscountedGamesUseCase(gameRepository)
         val factory = GameViewModelFactory(getDiscountedGamesUseCase)
         gameViewModel = ViewModelProvider(this, factory)[GameViewModel::class.java]

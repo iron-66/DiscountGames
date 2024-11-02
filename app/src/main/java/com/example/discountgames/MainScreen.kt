@@ -7,14 +7,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.discountgames.view.EmptyScreen
-import com.example.discountgames.view.GameDetailsScreen
-import com.example.discountgames.view.GamesListScreen
-import com.example.discountgames.viewModel.EmptyViewModel
+import com.example.discountgames.presentation.view.BottomNavigationBar
+import com.example.discountgames.presentation.view.EmptyScreen
+import com.example.discountgames.presentation.view.GameDetailsScreen
+import com.example.discountgames.presentation.view.GamesListScreen
+import com.example.discountgames.presentation.viewModel.EmptyViewModel
+import com.example.discountgames.presentation.viewModel.GameViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(viewModel: com.example.discountgames.presentation.GameViewModel) {
+fun MainScreen(viewModel: GameViewModel) {
     val navController = rememberNavController()
 
     Scaffold(

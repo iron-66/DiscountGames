@@ -1,4 +1,4 @@
-package com.example.discountgames.presentation
+package com.example.discountgames.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

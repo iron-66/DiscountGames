@@ -1,4 +1,4 @@
-package com.example.discountgames
+package com.example.discountgames.presentation.view
 
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable

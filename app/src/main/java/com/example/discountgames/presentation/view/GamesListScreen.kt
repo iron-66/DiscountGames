@@ -26,7 +26,7 @@ fun GamesListScreen(navController: NavHostController, viewModel: GameViewModel) 
                     .fillMaxWidth()
                     .padding(15.dp)
                     .clickable {
-                        navController.navigate("gameDetails/$index")
+                        navController.navigate("gameDetails/${game.gameID}")
                     }
             )
         }

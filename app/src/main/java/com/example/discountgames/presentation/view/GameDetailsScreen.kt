@@ -16,12 +16,12 @@ import com.example.discountgames.presentation.viewModel.GameViewModel
 import com.example.discountgames.domain.FavoriteGame
 
 @Composable
-fun GameDetailsScreen(index: Int, viewModel: GameViewModel) {
-    val games = viewModel.gamesList.value
-    val game = games.getOrNull(index)
+fun GameDetailsScreen(gameId: String, viewModel: GameViewModel) {
+    val game = viewModel.gamesList.value.find { it.gameID  == gameId }
+    val isFavorite = viewModel.isGameInFavorites(gameId)
 
     if (game != null) {
-        Column(modifier = Modifier.padding(top = 50.dp, start = 16.dp, end = 16.dp)) {
+        Column(modifier = Modifier.padding(top = 50.dp, start = 15.dp, end = 15.dp)) {
             Text(text = game.title, modifier = Modifier.padding(bottom = 8.dp))
             Text(text = "Цена без скидки: ${game.normalPrice}$")
             Text(text = "Текущая цена: ${game.salePrice}$")
@@ -30,26 +30,40 @@ fun GameDetailsScreen(index: Int, viewModel: GameViewModel) {
                 contentDescription = null,
                 modifier = Modifier
                     .height(80.dp)
-                    .padding(top = 8.dp),
+                    .padding(top = 10.dp),
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(15.dp))
             Button(onClick = {
-                viewModel.addGameToFavorites(
-                    FavoriteGame(
-                        id = game.dealId,
-                        title = game.title,
-                        normalPrice = game.normalPrice,
-                        salePrice = game.salePrice,
-                        thumb = game.thumb
+                if (isFavorite) {
+                    viewModel.removeGameFromFavorites(game.gameID)
+                } else {
+                    viewModel.addGameToFavorites(
+                        FavoriteGame(
+                            id = game.gameID ,
+                            title = game.title,
+                            normalPrice = game.normalPrice,
+                            salePrice = game.salePrice,
+                            thumb = game.thumb
+                        )
                     )
-                )
+                }
             }) {
-                Text("Добавить в избранное")
+                Text(if (isFavorite) "Удалить из избранного" else "Добавить в избранное")
             }
         }
     } else {
-        Text(text = "Отсутствуют данные по данной игре", modifier = Modifier.padding(16.dp))
+        Column(modifier = Modifier.padding(top = 50.dp, start = 15.dp, end = 15.dp)) {
+            Text(text = "Отсутствуют данные по данной игре")
+            Spacer(modifier = Modifier.height(16.dp))
+            if (isFavorite) {
+                Button(onClick = {
+                    viewModel.removeGameFromFavorites(gameId)
+                }) {
+                    Text("Удалить из избранного")
+                }
+            }
+        }
     }
 }

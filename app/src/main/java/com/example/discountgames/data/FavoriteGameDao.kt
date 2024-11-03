@@ -17,4 +17,7 @@ interface FavoriteGameDao {
 
     @Query("DELETE FROM favorite_games WHERE id = :gameId")
     suspend fun deleteGame(gameId: String)
+
+    @Query("DELETE FROM favorite_games")
+    suspend fun clearFavorites()
 }

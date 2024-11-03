@@ -69,4 +69,15 @@ class GameViewModel(
             repository.removeGameFromFavorites(gameId)
         }
     }
+
+    fun isGameInFavorites(gameId: String): Boolean {
+        return favoriteGames.value.any { it.id == gameId }
+    }
+
+    fun clearFavorites() {
+        viewModelScope.launch {
+            repository.clearFavoriteGames()
+            loadFavoriteGames() // Обновляем список избранных после очистки
+        }
+    }
 }

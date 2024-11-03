@@ -29,9 +29,9 @@ fun MainScreen(viewModel: GameViewModel) {
             composable("gamesList") {
                 GamesListScreen(navController = navController, viewModel = viewModel)
             }
-            composable("gameDetails/{index}") { backStackEntry ->
-                val index = backStackEntry.arguments?.getString("index")?.toInt() ?: 0
-                GameDetailsScreen(index = index, viewModel = viewModel)
+            composable("gameDetails/{gameId}") { backStackEntry ->
+                val gameId  = backStackEntry.arguments?.getString("gameId") ?: ""
+                GameDetailsScreen(gameId = gameId, viewModel = viewModel)
             }
             composable("settings") {
                 val emptyViewModel: EmptyViewModel = viewModel()

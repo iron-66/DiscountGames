@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
         val getDiscountedGamesUseCase = GetDiscountedGamesUseCase(gameRepository)
         val factory = GameViewModelFactory(getDiscountedGamesUseCase, gameRepository)
         gameViewModel = ViewModelProvider(this, factory)[GameViewModel::class.java]
+        // gameViewModel.clearFavorites()
 
         setContent {
             MainScreen(viewModel = gameViewModel)

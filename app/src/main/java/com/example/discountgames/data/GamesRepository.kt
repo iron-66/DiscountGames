@@ -14,6 +14,7 @@ class GamesRepository(private val apiService: GamesApi, private val favoriteGame
                 val gamesList = apiService.getDiscountedGames(storeId, upperPrice)
                 gamesList.map { gameInfo ->
                     Game(
+                        gameID = gameInfo.gameID,
                         title = gameInfo.title,
                         normalPrice = gameInfo.normalPrice,
                         salePrice = gameInfo.salePrice,
@@ -39,5 +40,9 @@ class GamesRepository(private val apiService: GamesApi, private val favoriteGame
 
     suspend fun removeGameFromFavorites(gameId: String) {
         favoriteGameDao.deleteGame(gameId)
+    }
+
+    suspend fun clearFavoriteGames() {
+        favoriteGameDao.clearFavorites()
     }
 }

@@ -25,21 +25,25 @@ import com.example.discountgames.presentation.viewModel.GameViewModel
 
 @Composable
 fun SettingsScreen(navController: NavController, viewModel: GameViewModel) {
-    var selectedRating by remember { mutableStateOf<Int?>(null) }
-    var selectedYear by remember { mutableStateOf<String?>(null) }
+    val selectedRating by viewModel.selectedRating
+    val selectedYear by viewModel.selectedYear
 
     Column(modifier = Modifier.padding(top = 50.dp, start = 15.dp, end = 15.dp)) {
         Text(text = "Выберите рейтинг:")
-        RatingDropdown(selectedRating) { selectedRating = it }
+        RatingDropdown(selectedRating) { newRating ->
+            viewModel.updateRating(newRating)
+        }
 
         Spacer(modifier = Modifier.height(15.dp))
 
         Text(text = "Выберите год выпуска:")
-        YearDropdown(selectedYear) { selectedYear = it }
+        YearDropdown(selectedYear) { newYear ->
+            viewModel.updateYear(newYear)
+        }
 
         Button(
             onClick = {
-                // viewModel.saveFilters(selectedRating, selectedYear)
+                viewModel.saveFilters(selectedRating, selectedYear)
                 navController.navigate("gamesList")
             },
             modifier = Modifier

@@ -8,5 +8,7 @@ data class Game(
     @SerializedName("normalPrice") val normalPrice: String,
     @SerializedName("salePrice") val salePrice: String,
     @SerializedName("dealID") val dealId: String,
-    @SerializedName("thumb") val thumb: String
+    @SerializedName("thumb") val thumb: String,
+    @SerializedName("steamRatingPercent") val steamRatingPercent: Int,
+    @SerializedName("releaseDate") val releaseDate: String
 )

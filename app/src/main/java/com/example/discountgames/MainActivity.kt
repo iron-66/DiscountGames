@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         val apiService = RetrofitInstance.apiService
         val gameRepository = GamesRepository(apiService, favoriteGameDao)
         val getDiscountedGamesUseCase = GetDiscountedGamesUseCase(gameRepository)
-        val factory = GameViewModelFactory(getDiscountedGamesUseCase, gameRepository)
+        val factory = GameViewModelFactory(getDiscountedGamesUseCase, gameRepository, this)
         gameViewModel = ViewModelProvider(this, factory)[GameViewModel::class.java]
         // gameViewModel.clearFavorites()
 

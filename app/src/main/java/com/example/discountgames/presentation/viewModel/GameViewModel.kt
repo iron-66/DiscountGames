@@ -2,6 +2,7 @@ package com.example.discountgames.presentation.viewModel
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.discountgames.data.GamesRepository
@@ -10,6 +11,7 @@ import com.example.discountgames.domain.Game
 import com.example.discountgames.domain.GetDiscountedGamesUseCase
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.prefs.Preferences
 
 class GameViewModel(
     private val getDiscountedGamesUseCase: GetDiscountedGamesUseCase,
@@ -77,7 +79,7 @@ class GameViewModel(
     fun clearFavorites() {
         viewModelScope.launch {
             repository.clearFavoriteGames()
-            loadFavoriteGames() // Обновляем список избранных после очистки
+            loadFavoriteGames()
         }
     }
 }

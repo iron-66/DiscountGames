@@ -12,6 +12,7 @@ import com.example.discountgames.presentation.view.EmptyScreen
 import com.example.discountgames.presentation.view.FavoriteScreen
 import com.example.discountgames.presentation.view.GameDetailsScreen
 import com.example.discountgames.presentation.view.GamesListScreen
+import com.example.discountgames.presentation.view.SettingsScreen
 import com.example.discountgames.presentation.viewModel.EmptyViewModel
 import com.example.discountgames.presentation.viewModel.GameViewModel
 
@@ -35,7 +36,7 @@ fun MainScreen(viewModel: GameViewModel) {
             }
             composable("settings") {
                 val emptyViewModel: EmptyViewModel = viewModel()
-                EmptyScreen(navController = navController, viewModel = emptyViewModel)
+                SettingsScreen(navController = navController, viewModel = viewModel)
             }
             composable("favorite") {
                 FavoriteScreen(navController = navController, viewModel = viewModel)

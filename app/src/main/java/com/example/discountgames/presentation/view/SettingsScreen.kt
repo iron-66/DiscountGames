@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
-import androidx.compose.material.Divider
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Slider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,8 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.discountgames.data.BadgeCache
 import com.example.discountgames.presentation.viewModel.GameViewModel
 
 @Composable
@@ -44,6 +42,7 @@ fun SettingsScreen(navController: NavController, viewModel: GameViewModel) {
         Button(
             onClick = {
                 viewModel.saveFilters(selectedRating, selectedYear)
+                BadgeCache.showBadge.value = selectedRating != null || selectedYear != null
                 navController.navigate("gamesList")
             },
             modifier = Modifier
@@ -96,9 +95,9 @@ fun YearDropdown(selectedYearCategory: String?, onYearSelected: (String?) -> Uni
     val yearOptions = listOf(
         null to "Любой",
         "2020-2024" to "2020-2024",
-        "2010–2019" to "2010–2019",
-        "2000–2009" to "2000–2009",
-        "1990–1999" to "1990–1999"
+        "2010-2019" to "2010-2019",
+        "2000-2009" to "2000-2009",
+        "1990-1999" to "1990-1999"
     )
 
     Column {

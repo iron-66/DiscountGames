@@ -3,45 +3,37 @@ package com.example.discountgames
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.discountgames.ui.theme.DiscountGamesTheme
+import androidx.lifecycle.ViewModelProvider
+import com.example.discountgames.data.RetrofitInstance
+import com.example.discountgames.data.GamesRepository
+import com.example.discountgames.domain.GetDiscountedGamesUseCase
+import com.example.discountgames.presentation.viewModel.GameViewModel
+import com.example.discountgames.presentation.viewModel.GameViewModelFactory
+import androidx.room.Room
+import com.example.discountgames.data.AppDatabase
 
 class MainActivity : ComponentActivity() {
+    private lateinit var gameViewModel: GameViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
+        val database = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "games_database"
+        ).build()
+        val favoriteGameDao = database.favoriteGameDao()
+
+        val apiService = RetrofitInstance.apiService
+        val gameRepository = GamesRepository(apiService, favoriteGameDao)
+        val getDiscountedGamesUseCase = GetDiscountedGamesUseCase(gameRepository)
+        val factory = GameViewModelFactory(getDiscountedGamesUseCase, gameRepository, this)
+        gameViewModel = ViewModelProvider(this, factory)[GameViewModel::class.java]
+        // gameViewModel.clearFavorites()
+
         setContent {
-            DiscountGamesTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            MainScreen(viewModel = gameViewModel)
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DiscountGamesTheme {
-        Greeting("Android")
     }
 }
